@@ -1,0 +1,35 @@
+The run_analysis.R script performs the data preparation and then followed by the 5 steps required as described in the course project’s definition.
+
+1.Loads all the dataset into the memory
+
+      features <- features.txt : (561 rows, 2 columns) : List of all features.
+      activity <- activity_labels.txt : (6 rows, 2 columns) : List of all 6 activities
+      subject_test <- test/subject_test.txt : (2947 rows, 1 column) : Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30
+      x_test <- test/X_test.txt : (2947 rows, 561 columns) : Test set
+      y_test <- test/y_test.txt : (2947 rows, 1 columns): Test labels
+      subject_train <- test/subject_train.txt : (7352 rows, 1 column): Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30
+      x_train <- test/X_train.txt : (7352 rows, 561 columns): Training set
+      y_train <- test/y_train.txt : (7352 rows, 1 columns): Training Labels
+
+2.Merging test and train values
+  X (10299 rows, 561 columns) is created by merging x_train and x_test using rbind() function
+  Y (10299 rows, 1 column) is created by merging y_train and y_test using rbind() function
+  subject (10299 rows, 1 column) is created by merging subject_train and subject_test using rbind() function
+
+3.Extracts only the measurements on the mean and standard deviation for each measurement
+  X is modifed to store only mean and standard deviation values
+  tidydata (10299 rows, 88 columns):new dataset is created by merging subject, X and Y
+4.Uses descriptive activity names to name the activities in the data set
+  All the labels values in tidydata is replaced by the values according to activity dataset
+
+5.Appropriately labels the data set with descriptive variable names
+  label column in tidydata renamed into activity
+  All Acc in column’s name replaced by Accelerometer
+  All Gyro in column’s name replaced by Gyroscope
+  All Mag in column’s name replaced by Magnitude
+  All abbreviations of mean,std and freq are fixed
+
+6.From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
+
+  AverageData (180 rows, 88 columns): A new dataset is created by sumarizing tidydata by means of each variable for each activity and each subject.
+  The AverageData is then written to an external file named AverageData.txt
